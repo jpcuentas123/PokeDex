@@ -1,6 +1,6 @@
 import { Button, ScrollView } from 'react-native'
 import React from 'react'
-import { fetchPokemons, fetchPokemosDetailsByUrl } from '../api/pockemon'
+import { fetchPokemons, fetchPokemonsDetailsByUrl } from '../api/pokemon'
 
 
 // enum LoadState {
@@ -10,7 +10,7 @@ import { fetchPokemons, fetchPokemosDetailsByUrl } from '../api/pockemon'
 //     ERROR = "ERROR",
 // }
 
-// const initialSatate = {
+// const initialState = {
 //     state: LoadState.IDLE,
 // };
 
@@ -25,15 +25,15 @@ import { fetchPokemons, fetchPokemosDetailsByUrl } from '../api/pockemon'
 //     }
 // }
 
-export default function Pockedex({ navigation }) {
-    const [pockemons, setPockemons] = React.useState([])
-    // const [state, dispatch] = React.useReducer(reducer, initialSatate);
+export default function Pokedex({ navigation }) {
+    const [pokemons, setPokemons] = React.useState([])
+    // const [state, dispatch] = React.useReducer(reducer, initialState);
 
-    const loadPockemons = async () => {
+    const loadPokemons = async () => {
         try {
-            const pockemonList = await fetchPokemons({ limit: 10 })
-            const pockemonDetails = await Promise.all(pockemonList.map(async (pockemon) => {
-                const details = await fetchPokemosDetailsByUrl(pockemon.url)
+            const pokemonList = await fetchPokemons({ limit: 10 })
+            const pokemonDetails = await Promise.all(pokemonList.map(async (pokemon) => {
+                const details = await fetchPokemonsDetailsByUrl(pokemon.url)
                 return {
                     id: details.id,
                     name: details.name,
@@ -43,17 +43,17 @@ export default function Pockedex({ navigation }) {
                     image: details.sprites.other['official-artwork'].front_default
                 }
             }))
-            return pockemonDetails;
+            return pokemonDetails;
 
         } catch (error) {
-            console.log(error);
+            return error;
         }
     }
 
     React.useEffect(() => {
         (async () => {
-            const result = await loadPockemons();
-            setPockemons(result)
+            const result = await loadPokemons();
+            setPokemons(result)
         })()
 
     }, [])
@@ -75,8 +75,8 @@ export default function Pockedex({ navigation }) {
 
     return (
         <ScrollView>
-            {pockemons.map(pockemon => (
-                <Button key={pockemon.name} title={`Name: ${pockemon.name} - XP: ${pockemon.base_experience}`} onPress={() => navigation.navigate('Pockemon', { name: pockemon.name })} />
+            {pokemons.map(pockemon => (
+                <Button key={pockemon.name} title={`Name: ${pockemon.name} - XP: ${pockemon.base_experience}`} onPress={() => navigation.navigate('Pokemon', { name: pockemon.name })} />
             ))}
         </ScrollView>
     )

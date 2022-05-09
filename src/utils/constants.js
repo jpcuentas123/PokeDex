@@ -1,1 +1,1 @@
-export const API_POCKEMONS_URL = 'https://pokeapi.co/api/v2/'
+export const API_POKEMONS_URL = 'https://pokeapi.co/api/v2/'

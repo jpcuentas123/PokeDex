@@ -2,10 +2,10 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import pockedexLogo from '../../assets/pokeball.png';
+import pokedexLogo from '../../assets/pokeball.png';
 import FavoritesNavigation from './FavoritesNavigation';
 import AccountNavigation from './AccountNavigation';
-import PockedexNavigation from './PockedexNavigation';
+import PokedexNavigation from './PokedexNavigation';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,7 +30,7 @@ export default function MainNavigation() {
     if (name === 'Pokedex') {
       return (
         <Image
-          source={pockedexLogo}
+          source={pokedexLogo}
           // eslint-disable-next-line react-native/no-inline-styles
           style={{ width: size * 3, height: size * 3, top: -15 }}
         />
@@ -60,7 +60,7 @@ export default function MainNavigation() {
       />
       <Tab.Screen
         name="Pokedex"
-        component={PockedexNavigation}
+        component={PokedexNavigation}
         options={{ tabBarLabel: '' }}
       />
       <Tab.Screen name="Account" component={AccountNavigation} options={{}} />
