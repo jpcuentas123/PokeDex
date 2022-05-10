@@ -1,6 +1,7 @@
-import { Button, ScrollView } from 'react-native'
 import React from 'react'
 import { fetchPokemons, fetchPokemonsDetailsByUrl } from '../api/pokemon'
+import PokemonsList from '../components/Pockemons/PokemonsList'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 // enum LoadState {
@@ -25,7 +26,7 @@ import { fetchPokemons, fetchPokemonsDetailsByUrl } from '../api/pokemon'
 //     }
 // }
 
-export default function Pokedex({ navigation }) {
+export default function Pokedex() {
     const [pokemons, setPokemons] = React.useState([])
     // const [state, dispatch] = React.useReducer(reducer, initialState);
 
@@ -74,10 +75,8 @@ export default function Pokedex({ navigation }) {
     // }
 
     return (
-        <ScrollView>
-            {pokemons.map(pockemon => (
-                <Button key={pockemon.name} title={`Name: ${pockemon.name} - XP: ${pockemon.base_experience}`} onPress={() => navigation.navigate('Pokemon', { name: pockemon.name })} />
-            ))}
-        </ScrollView>
+        <SafeAreaView>
+            <PokemonsList pokemons={pokemons} />
+        </SafeAreaView>
     )
 }
